@@ -6,128 +6,138 @@
 
 <style>
 
-/* ===== PAGE BACKGROUND ===== */
+/* ===== BODY ===== */
 body{
 margin:0;
-font-family:'Segoe UI',sans-serif;
-background:linear-gradient(135deg,#ffccd5,#ffe5ec,#fff1f5);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+font-family:Segoe UI, sans-serif;
+background:linear-gradient(135deg,#fff6f8,#ffe6ee);
+overflow-x:hidden;
 }
 
-/* ===== MAIN CARD (LIKE TEMPLATE) ===== */
-.container{
-width:90%;
-max-width:1100px;
-background:linear-gradient(135deg,#ff8fab,#ffc2d1);
-border-radius:25px;
-padding:50px;
-box-shadow:0 30px 60px rgba(0,0,0,.2);
-position:relative;
-overflow:hidden;
-}
-
-/* SOFT SHAPES */
-.container::before{
+/* SOFT BACKGROUND */
+body::before, body::after{
 content:"";
-position:absolute;
-width:400px;
-height:400px;
-background:#ffffff33;
+position:fixed;
 border-radius:50%;
-top:-120px;
-right:-120px;
+filter:blur(90px);
+z-index:-1;
+}
+body::before{
+width:500px;height:500px;
+background:#ffd6e0;
+top:-150px;left:-120px;
+animation:move1 15s infinite alternate;
+}
+body::after{
+width:450px;height:450px;
+background:#ffc2d1;
+bottom:-150px;right:-120px;
+animation:move2 18s infinite alternate;
 }
 
-.container::after{
-content:"";
-position:absolute;
-width:250px;
-height:250px;
-background:#ffffff22;
-border-radius:50%;
-bottom:-80px;
-left:-80px;
+@keyframes move1{from{transform:translateY(0)}to{transform:translateY(60px)}}
+@keyframes move2{from{transform:translateY(0)}to{transform:translateY(-60px)}}
+
+/* NAVBAR */
+nav{
+position:fixed;
+top:25px;
+right:50px;
+font-weight:600;
+z-index:5;
+}
+nav a{
+margin-left:30px;
+cursor:pointer;
+color:#444;
+text-decoration:none;
 }
 
-/* LAYOUT */
-.hero{
-display:flex;
+/* SECTIONS */
+.section{
+display:none;
+min-height:100vh;
+padding:80px 8%;
+}
+.active{display:flex;}
+
+/* ===== HOME ===== */
+.home{
 align-items:center;
 justify-content:space-between;
 }
 
-/* LEFT MESSAGE */
-.left{
-width:50%;
-color:white;
-}
+.left{width:45%;}
+.left h1{font-size:42px;color:#444;}
+.left p{font-size:18px;color:#666;line-height:1.7;}
 
-.left h1{
-font-size:48px;
-margin-bottom:20px;
-}
-
-.left p{
-font-size:18px;
-line-height:1.6;
-}
-
-/* RIGHT PHOTO */
-.right{
-width:40%;
-text-align:center;
-}
-
+.right{width:45%;text-align:center;}
 .right img{
-width:100%;
+width:85%;
 border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.25);
+box-shadow:0 25px 60px rgba(0,0,0,.25);
 }
 
-/* QUESTION AREA */
-.question{
-margin-top:30px;
+/* QUESTION */
+.proposal{
+position:absolute;
+right:120px;
+bottom:120px;
+text-align:center;
 }
 
 button{
 padding:12px 26px;
-margin:10px;
 border:none;
-border-radius:30px;
+border-radius:25px;
 font-size:16px;
+margin:10px;
 cursor:pointer;
 }
 
-.yes{
-background:white;
-color:#ff4d6d;
-font-weight:bold;
+.yes{background:#ff4d6d;color:white;}
+.no{background:#ccc;}
+
+/* ===== MEMORIES ===== */
+.memories{
+flex-direction:column;
+align-items:center;
 }
 
-.no{
-background:#ffffff88;
-color:white;
+.gallery{
+width:85%;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:25px;
+margin-top:40px;
 }
 
-/* NAVBAR */
-nav{
-position:absolute;
-top:20px;
-right:30px;
+.gallery img{
+width:100%;
+border-radius:18px;
+box-shadow:0 15px 35px rgba(0,0,0,.15);
+transition:.3s;
+}
+.gallery img:hover{
+transform:scale(1.05);
 }
 
-nav a{
-margin-left:20px;
-color:white;
-font-weight:600;
-cursor:pointer;
-text-decoration:none;
+/* ===== VIDEO ===== */
+.video{
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
 }
 
-/* LOVE SCREEN */
+video{
+width:70%;
+max-width:700px;
+border-radius:20px;
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+/* SECRET MESSAGE */
 #loveScreen{
 display:none;
 position:fixed;
@@ -138,9 +148,12 @@ height:100%;
 background:white;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-font-size:26px;
-color:#ff4d6d;
+text-align:center;
+padding:40px;
+font-size:22px;
+line-height:1.8;
+color:#444;
+z-index:10;
 }
 
 </style>
@@ -148,28 +161,32 @@ color:#ff4d6d;
 
 <body>
 
-<div class="container">
-
+<!-- NAV -->
 <nav>
-<a onclick="showSection('home')">Home</a>
-<a onclick="showSection('memories')">Memories</a>
-<a onclick="showSection('videos')">Videos</a>
+<a onclick="show('home')">Home</a>
+<a onclick="show('memories')">Memories</a>
+<a onclick="show('video')">Video</a>
 </nav>
 
-<div id="home">
-
-<div class="hero">
+<!-- HOME -->
+<div id="home" class="section home active">
 
 <div class="left">
-<h1 id="typing"></h1>
+<h1>I wanted to tell you something… ❤️</h1>
 
 <p>
 From your Bubu ❤️<br><br>
-We have shared so many moments together,
-and I still choose you every day.
+We have shared so many beautiful moments together,
+and somehow every single day,
+I still choose you again.
 </p>
+</div>
 
-<div class="question">
+<div class="right">
+<img src="Master Photo.JPG">
+</div>
+
+<div class="proposal">
 <h3>Will you be my Valentine?</h3>
 <button class="yes" onclick="yesClick()">YES</button>
 <button class="no" id="noBtn">NO</button>
@@ -177,18 +194,48 @@ and I still choose you every day.
 
 </div>
 
-<div class="right">
-<img src="Master Photo.JPG">
+<!-- MEMORIES -->
+<div id="memories" class="section memories">
+<h1>Our Memories 📸</h1>
+
+<div class="gallery">
+<img src="1.jpg">
+<img src="2.jpg">
+<img src="3.jpg">
+<img src="4.jpg">
+<img src="5.jpg">
+<img src="6.jpg">
+<img src="7.heic">
+<img src="8.jpg">
+<img src="9.jpg">
+<img src="10.jpg">
+<img src="11.jpg">
+<img src="12.jpg">
+</div>
 </div>
 
-</div>
+<!-- VIDEO -->
+<div id="video" class="section video">
+<h1>Our Special Moment ❤️</h1>
+<p>Every memory with you feels like a beautiful movie…</p>
+
+<video controls autoplay loop>
+<source src="video1.mp4">
+</video>
 </div>
 
-</div>
-
-<!-- LOVE MESSAGE -->
+<!-- SECRET MESSAGE -->
 <div id="loveScreen">
-💌 I will always choose you ❤️
+From your Bubu ❤️<br><br>
+
+Every memory with you has become a part of who I am.<br>
+The laughter, the small fights, the late conversations —
+all of it means everything to me.<br><br>
+
+Loving you was never a decision… it just happened naturally,
+and it still happens every day.<br><br>
+
+<b>I will always choose you ❤️</b>
 </div>
 
 <audio id="music" autoplay loop>
@@ -197,38 +244,30 @@ and I still choose you every day.
 
 <script>
 
-/* TYPE LETTER */
-const message="Happy Valentine ❤️";
-let i=0;
-function typing(){
-if(i<message.length){
-document.getElementById("typing").innerHTML+=message.charAt(i);
-i++;
-setTimeout(typing,60);
-}}
-typing();
+/* NAVIGATION */
+function show(id){
+document.querySelectorAll('.section')
+.forEach(sec=>sec.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
 
-/* MUSIC */
-let music=document.getElementById("music");
-music.volume=0.2;
+/* NO BUTTON ESCAPE */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
+});
 
-/* YES */
+/* YES CLICK */
 function yesClick(){
-music.volume=1;
 document.getElementById("loveScreen").style.display="flex";
 
 setTimeout(()=>{
 document.getElementById("loveScreen").style.display="none";
+show('memories');
 },15000);
 }
-
-/* RUN AWAY NO */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*200+"px";
-noBtn.style.top=Math.random()*150+"px";
-});
 
 </script>
 
