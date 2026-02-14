@@ -2,146 +2,122 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Our Story ❤️</title>
+<title>Our Story</title>
 
 <style>
 
 /* ===== BODY ===== */
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(120deg,#ffd6e0,#ffeef3,#fff5f8);
-overflow-x:hidden;
+font-family:Helvetica, Arial;
+background:linear-gradient(120deg,#f6f7fb,#fdf2f5);
+overflow:hidden;
 color:#333;
+}
+
+/* ===== HERO LAYOUT ===== */
+.hero{
+display:flex;
+height:100vh;
+align-items:center;
+justify-content:space-between;
+padding:0 8%;
+}
+
+/* LEFT TEXT */
+.left{
+width:40%;
+}
+
+.left h1{
+font-size:42px;
+margin-bottom:20px;
+}
+
+.left p{
+font-size:18px;
+line-height:1.6;
+}
+
+/* CENTER PHOTO */
+.center{
+width:35%;
 text-align:center;
-transition:1s;
 }
 
-/* ===== FLOATING BACKGROUND ===== */
-.shape{
-position:fixed;
-border-radius:50%;
-opacity:.25;
-animation:float 12s infinite ease-in-out;
-z-index:-1;
-}
-
-.shape1{
-width:220px;height:220px;
-background:#ff8fab;
-top:10%;left:5%;
-}
-
-.shape2{
-width:300px;height:300px;
-background:#ffc2d1;
-bottom:10%;right:5%;
-animation-delay:3s;
+.center img{
+width:100%;
+border-radius:25px;
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+animation:float 5s ease-in-out infinite;
 }
 
 @keyframes float{
 0%,100%{transform:translateY(0);}
-50%{transform:translateY(-40px);}
+50%{transform:translateY(-15px);}
 }
 
-/* ===== NAVBAR ===== */
-nav{
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
-background:rgba(255,255,255,0.5);
-backdrop-filter:blur(12px);
-position:sticky;
-top:0;
+/* RIGHT QUESTION */
+.right{
+width:25%;
+text-align:center;
+position:relative;
 }
 
-nav a{
-margin-left:20px;
-cursor:pointer;
-font-weight:bold;
-color:#d6336c;
-text-decoration:none;
+.right h2{
+font-size:26px;
+margin-bottom:20px;
 }
 
-/* ===== SECTIONS ===== */
-.section{
-display:none;
-padding:70px 20px;
-animation:fadeIn 1s ease;
-}
-
-.active{display:block;}
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(30px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* ===== HERO ===== */
-.hero img{
-width:340px;
-border-radius:25px;
-box-shadow:0 12px 30px rgba(0,0,0,0.25);
-}
-
-/* ===== GALLERY ===== */
-.gallery{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:18px;
-}
-
-.gallery img, video{
-width:230px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.2);
-}
-
-/* ===== BUTTONS ===== */
+/* BUTTONS */
 button{
-padding:14px 32px;
-margin:15px;
+padding:14px 28px;
+margin:10px;
 font-size:18px;
 border:none;
 border-radius:30px;
 cursor:pointer;
 }
 
-.yes{background:#ff4d6d;color:white;}
-.no{background:#888;color:white;}
+.yes{background:#e63946;color:white;}
+.no{background:#999;color:white;}
 
-button:hover{transform:scale(1.08);}
+button:hover{transform:scale(1.1);}
 
-/* ===== LOVE LETTER SCREEN ===== */
-#loveLetter{
+/* ===== CUPID ARROW ===== */
+.arrow{
+position:fixed;
+top:40%;
+left:-150px;
+font-size:40px;
+animation:shoot 6s linear infinite;
+}
+
+@keyframes shoot{
+0%{left:-150px; transform:rotate(-20deg);}
+100%{left:110%; transform:rotate(10deg);}
+}
+
+/* ===== LOVE SCREEN ===== */
+#loveScreen{
 display:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:linear-gradient(135deg,#ffccd5,#ffe6eb);
-color:#d6336c;
+background:#ffffff;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 font-size:28px;
-padding:30px;
-animation:fadeIn 2s ease;
+color:#e63946;
+animation:fade 1s;
 }
 
-/* ===== HEARTS ===== */
-.heart{
-position:fixed;
-bottom:-20px;
-font-size:24px;
-animation:floatUp 6s linear infinite;
-}
-
-@keyframes floatUp{
-0%{transform:translateY(0);opacity:1;}
-100%{transform:translateY(-900px);opacity:0;}
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
 }
 
 </style>
@@ -149,120 +125,77 @@ animation:floatUp 6s linear infinite;
 
 <body>
 
-<div class="shape shape1"></div>
-<div class="shape shape2"></div>
-
-<!-- NAVBAR -->
-<nav>
-<div><b>Our Story ❤️</b></div>
-<div>
-<a onclick="showSection('home')">Home</a>
-<a onclick="showSection('memories')">Memories</a>
-<a onclick="showSection('videos')">Videos</a>
-</div>
-</nav>
-
-<!-- HOME -->
-<div id="home" class="section active">
-
-<h1 id="typingText"></h1>
+<div class="arrow">🏹❤️</div>
 
 <div class="hero">
+
+<!-- LEFT TEXT -->
+<div class="left">
+<h1 id="typing"></h1>
+
+<p>
+From your Bubu ❤️ <br><br>
+We have shared so many memories together,
+and I still choose you every single day.
+</p>
+</div>
+
+<!-- CENTER PHOTO -->
+<div class="center">
 <img src="Master Photo.JPG">
 </div>
 
-<p>
-From your Bubu ❤️<br><br>
-We have shared so many memories together,
-and I still choose you every day.
-</p>
-
+<!-- RIGHT QUESTION -->
+<div class="right">
 <h2>Will you be my Valentine?</h2>
 
 <button class="yes" onclick="yesClick()">YES</button>
 <button class="no" id="noBtn">NO</button>
+</div>
 
 </div>
 
-<!-- MEMORIES -->
-<div id="memories" class="section">
-<h2>Our Memories 📸</h2>
-
-<div class="gallery">
-<img src="1.jpg">
-<img src="2.jpg">
-<img src="3.jpg">
-<img src="4.jpg">
-<img src="5.jpg">
-<img src="6.jpg">
-<img src="7.heic">
-<img src="8.jpg">
-<img src="9.jpg">
-<img src="10.jpg">
-<img src="11.jpg">
-<img src="12.jpg">
-</div>
-</div>
-
-<!-- VIDEOS -->
-<div id="videos" class="section">
-<h2>Our Moments 🎥</h2>
-
-<div class="gallery">
-<video controls playsinline>
-<source src="video1.mp4">
-</video>
-
-<video controls playsinline>
-<source src="video2.mp4">
-</video>
-</div>
-</div>
-
-<!-- LOVE LETTER FINAL SCREEN -->
-<div id="loveLetter">
+<!-- LOVE MESSAGE -->
+<div id="loveScreen">
 💌 Thank you for choosing us again and again.<br><br>
-I will always choose you. ❤️
+I will always choose you ❤️
 </div>
 
 <!-- MUSIC -->
-<audio id="bgmusic" autoplay loop>
+<audio id="music" autoplay loop>
 <source src="music.mp3">
 </audio>
 
 <script>
 
-/* PAGE SWITCH */
-function showSection(id){
-document.querySelectorAll('.section')
-.forEach(sec=>sec.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+/* TYPING TEXT */
+const text="I wanted to tell you something… ❤️";
+let i=0;
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,70);
 }
+}
+typing();
 
 /* MUSIC */
-let music=document.getElementById("bgmusic");
-music.volume=0.15;
+let music=document.getElementById("music");
+music.volume=0.2;
 
-/* YES CLICK FINAL MAGIC */
+/* YES CLICK */
 function yesClick(){
 music.volume=1;
-document.getElementById("loveLetter").style.display="flex";
-createHearts();
+document.getElementById("loveScreen").style.display="flex";
+
+/* RETURN AFTER 15 SEC */
+setTimeout(()=>{
+document.getElementById("loveScreen").style.display="none";
+},15000);
 }
 
-/* FLOATING HEARTS */
-function createHearts(){
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},300);
-}
-
-/* RUNNING NO BUTTON */
+/* RUN AWAY NO BUTTON */
 const noBtn=document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover",moveBtn);
@@ -275,20 +208,6 @@ noBtn.style.position="fixed";
 noBtn.style.left=x+"px";
 noBtn.style.top=y+"px";
 }
-
-/* TYPING EFFECT */
-const message="I wanted to tell you something… ❤️";
-let index=0;
-
-function typeWriter(){
-if(index<message.length){
-document.getElementById("typingText").innerHTML+=message.charAt(index);
-index++;
-setTimeout(typeWriter,70);
-}
-}
-
-window.addEventListener("load",typeWriter);
 
 </script>
 
