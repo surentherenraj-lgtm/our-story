@@ -14,7 +14,7 @@ background:linear-gradient(135deg,#fff6f8,#ffe6ee);
 overflow-x:hidden;
 }
 
-/* SOFT BACKGROUND */
+/* BACKGROUND MOTION */
 body::before, body::after{
 content:"";
 position:fixed;
@@ -22,6 +22,7 @@ border-radius:50%;
 filter:blur(90px);
 z-index:-1;
 }
+
 body::before{
 width:500px;height:500px;
 background:#ffd6e0;
@@ -43,8 +44,8 @@ nav{
 position:fixed;
 top:25px;
 right:50px;
+z-index:100;
 font-weight:600;
-z-index:5;
 }
 nav a{
 margin-left:30px;
@@ -57,14 +58,18 @@ text-decoration:none;
 .section{
 display:none;
 min-height:100vh;
-padding:80px 8%;
+padding:90px 8%;
 }
-.active{display:flex;}
 
-/* ===== HOME ===== */
+.active{
+display:flex;
+}
+
+/* HOME LAYOUT */
 .home{
 align-items:center;
 justify-content:space-between;
+position:relative;
 }
 
 .left{width:45%;}
@@ -78,11 +83,11 @@ border-radius:20px;
 box-shadow:0 25px 60px rgba(0,0,0,.25);
 }
 
-/* QUESTION */
+/* PROPOSAL */
 .proposal{
 position:absolute;
-right:120px;
-bottom:120px;
+right:80px;
+bottom:60px;
 text-align:center;
 }
 
@@ -98,7 +103,7 @@ cursor:pointer;
 .yes{background:#ff4d6d;color:white;}
 .no{background:#ccc;}
 
-/* ===== MEMORIES ===== */
+/* MEMORIES */
 .memories{
 flex-direction:column;
 align-items:center;
@@ -122,11 +127,10 @@ transition:.3s;
 transform:scale(1.05);
 }
 
-/* ===== VIDEO ===== */
+/* VIDEO */
 .video{
 flex-direction:column;
 align-items:center;
-justify-content:center;
 text-align:center;
 }
 
@@ -153,7 +157,7 @@ padding:40px;
 font-size:22px;
 line-height:1.8;
 color:#444;
-z-index:10;
+z-index:200;
 }
 
 </style>
@@ -161,11 +165,11 @@ z-index:10;
 
 <body>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 <nav>
-<a onclick="show('home')">Home</a>
-<a onclick="show('memories')">Memories</a>
-<a onclick="show('video')">Video</a>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('memories')">Memories</a>
+<a onclick="showSection('video')">Video</a>
 </nav>
 
 <!-- HOME -->
@@ -173,7 +177,6 @@ z-index:10;
 
 <div class="left">
 <h1>I wanted to tell you something… ❤️</h1>
-
 <p>
 From your Bubu ❤️<br><br>
 We have shared so many beautiful moments together,
@@ -227,28 +230,31 @@ I still choose you again.
 <!-- SECRET MESSAGE -->
 <div id="loveScreen">
 From your Bubu ❤️<br><br>
-
 Every memory with you has become a part of who I am.<br>
 The laughter, the small fights, the late conversations —
 all of it means everything to me.<br><br>
-
 Loving you was never a decision… it just happened naturally,
 and it still happens every day.<br><br>
-
 <b>I will always choose you ❤️</b>
 </div>
 
-<audio id="music" autoplay loop>
-<source src="music.mp3">
-</audio>
-
 <script>
 
-/* NAVIGATION */
-function show(id){
+/* SECTION SWITCH */
+function showSection(id){
 document.querySelectorAll('.section')
 .forEach(sec=>sec.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+}
+
+/* YES BUTTON */
+function yesClick(){
+document.getElementById("loveScreen").style.display="flex";
+
+setTimeout(()=>{
+document.getElementById("loveScreen").style.display="none";
+showSection('memories');
+},15000);
 }
 
 /* NO BUTTON ESCAPE */
@@ -258,16 +264,6 @@ noBtn.style.position="absolute";
 noBtn.style.left=Math.random()*80+"%";
 noBtn.style.top=Math.random()*80+"%";
 });
-
-/* YES CLICK */
-function yesClick(){
-document.getElementById("loveScreen").style.display="flex";
-
-setTimeout(()=>{
-document.getElementById("loveScreen").style.display="none";
-show('memories');
-},15000);
-}
 
 </script>
 
