@@ -7,16 +7,16 @@
 
 <style>
 
-/* ---------- BODY ---------- */
 body{
 margin:0;
 font-family:Segoe UI, sans-serif;
 background:linear-gradient(135deg,#fff4f6,#ffe6ec);
 color:#444;
 overflow-x:hidden;
+transition:filter 1s ease;
 }
 
-/* ---------- NAV ---------- */
+/* NAV */
 nav{
 position:fixed;
 top:0;
@@ -35,7 +35,7 @@ cursor:pointer;
 font-weight:600;
 }
 
-/* ---------- SECTIONS ---------- */
+/* SECTIONS */
 .section{
 display:none;
 min-height:100vh;
@@ -46,7 +46,7 @@ justify-content:center;
 
 .active{display:flex;}
 
-/* ---------- HOME ---------- */
+/* HOME */
 .home{
 display:flex;
 justify-content:space-between;
@@ -79,17 +79,23 @@ animation:float 5s ease-in-out infinite;
 50%{transform:translateY(-12px);}
 }
 
-/* ---------- PROPOSAL ---------- */
+/* PROPOSAL */
 .proposal{
 position:fixed;
-bottom:30px;
+bottom:45px;
 left:50%;
 transform:translateX(-50%);
-background:white;
-padding:20px 40px;
-border-radius:25px;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
 text-align:center;
+font-size:22px;
+color:#b3003c;
+font-weight:600;
+transition:.6s ease;
+}
+
+.proposal.glow{
+text-shadow:
+0 0 8px rgba(255,80,120,0.6),
+0 0 18px rgba(255,80,120,0.4);
 }
 
 button{
@@ -104,7 +110,7 @@ font-size:16px;
 .yes{background:#ff4d6d;color:white;}
 .no{background:#999;color:white;}
 
-/* ---------- MEMORIES ---------- */
+/* MEMORIES */
 .gallery{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -121,14 +127,14 @@ transition:.4s;
 transform:scale(1.05);
 }
 
-/* ---------- VIDEO ---------- */
+/* VIDEO */
 video{
 width:70%;
 border-radius:20px;
 box-shadow:0 20px 40px rgba(0,0,0,.25);
 }
 
-/* ---------- FINAL SCREEN ---------- */
+/* FINAL SCREEN */
 #finalScreen{
 position:fixed;
 top:0;
@@ -143,6 +149,7 @@ flex-direction:column;
 z-index:9999;
 text-align:center;
 color:#b3003c;
+font-size:32px;
 }
 
 .heart{
@@ -220,16 +227,20 @@ I will always choose you ❤️
 </div>
 
 <!-- PROPOSAL -->
-<div class="proposal">
-<h2>Will you be my Valentine? ❤️</h2>
+<div id="proposalBox" class="proposal">
+Will you be my Valentine? ❤️
+<br>
 <button id="yesBtn" class="yes" onclick="yesClick()">YES</button>
 <button id="noBtn" class="no">NO</button>
 </div>
 
 <!-- FINAL SCREEN -->
 <div id="finalScreen">
-<h1>Forever Starts Here… ❤️</h1>
-<p>You just made my world complete.</p>
+Forever Starts Here… ❤️
+<br>
+<span style="font-size:20px;margin-top:15px;">
+You just made my world complete.
+</span>
 </div>
 
 <script>
@@ -239,9 +250,11 @@ function showPage(page){
 document.querySelectorAll('.section')
 .forEach(s=>s.classList.remove('active'));
 document.getElementById(page).classList.add('active');
+document.getElementById("proposalBox").style.display =
+(page==="home")?"block":"none";
 }
 
-/* MUSIC FADE IN */
+/* MUSIC FADE + GLOW */
 let started=false;
 document.body.addEventListener("click",()=>{
 if(started) return;
@@ -249,6 +262,8 @@ started=true;
 const music=document.getElementById("bgMusic");
 music.volume=0;
 music.play();
+document.getElementById("proposalBox").classList.add("glow");
+
 let v=0;
 let fade=setInterval(()=>{
 v+=0.02;
@@ -257,8 +272,32 @@ if(v>=0.6) clearInterval(fade);
 },200);
 });
 
-/* YES CLICK */
+/* SAFE RUNAWAY NO */
+const noBtn=document.getElementById("noBtn");
+noBtn.style.position="fixed";
+noBtn.style.transition="left .35s ease, top .35s ease";
+noBtn.addEventListener("click",e=>e.preventDefault());
+
+function moveNo(){
+const pad=60;
+const maxX=window.innerWidth-noBtn.offsetWidth-pad;
+const minX=pad;
+const maxY=window.innerHeight-220;
+const minY=100;
+noBtn.style.left=Math.random()*(maxX-minX)+minX+"px";
+noBtn.style.top=Math.random()*(maxY-minY)+minY+"px";
+}
+
+noBtn.addEventListener("mouseenter",moveNo);
+noBtn.addEventListener("mousemove",moveNo);
+
+/* YES CINEMATIC ENDING */
 function yesClick(){
+
+document.body.style.filter="blur(8px) brightness(0.9)";
+
+setTimeout(()=>{
+document.body.style.filter="none";
 document.getElementById("finalScreen").style.display="flex";
 
 setInterval(()=>{
@@ -270,20 +309,9 @@ h.style.fontSize=(20+Math.random()*30)+"px";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
 },300);
+
+},1000);
 }
-
-/* SMOOTH RUNAWAY NO BUTTON */
-const noBtn=document.getElementById("noBtn");
-noBtn.style.position="fixed";
-noBtn.style.transition="left .35s ease, top .35s ease";
-
-noBtn.addEventListener("mouseenter",()=>{
-const pad=30;
-const maxX=window.innerWidth-noBtn.offsetWidth-pad;
-const maxY=window.innerHeight-noBtn.offsetHeight-pad;
-noBtn.style.left=Math.random()*maxX+"px";
-noBtn.style.top=Math.random()*maxY+"px";
-});
 
 </script>
 
