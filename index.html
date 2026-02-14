@@ -6,13 +6,41 @@
 
 <style>
 
-/* ===== BACKGROUND ===== */
+/* ===== BODY ===== */
 body{
 margin:0;
 font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#ffd6e0,#ffe6eb,#fff0f5);
+background:linear-gradient(120deg,#ffd6e0,#ffeef3,#fff5f8);
+overflow-x:hidden;
 color:#333;
 text-align:center;
+}
+
+/* ===== FLOATING SHAPES ===== */
+.shape{
+position:fixed;
+border-radius:50%;
+opacity:.25;
+animation:float 12s infinite ease-in-out;
+z-index:-1;
+}
+
+.shape1{
+width:220px;height:220px;
+background:#ff8fab;
+top:10%;left:5%;
+}
+
+.shape2{
+width:300px;height:300px;
+background:#ffc2d1;
+bottom:10%;right:5%;
+animation-delay:3s;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-40px);}
 }
 
 /* ===== NAVBAR ===== */
@@ -21,7 +49,9 @@ display:flex;
 justify-content:space-between;
 padding:20px 40px;
 background:rgba(255,255,255,0.5);
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
+position:sticky;
+top:0;
 }
 
 nav a{
@@ -35,18 +65,28 @@ text-decoration:none;
 /* ===== SECTIONS ===== */
 .section{
 display:none;
-padding:60px 20px;
+padding:70px 20px;
+animation:fadeIn 1s ease;
 }
 
-.active{
-display:block;
+.active{display:block;}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 /* ===== HERO ===== */
 .hero img{
-width:320px;
-border-radius:20px;
-box-shadow:0 8px 25px rgba(0,0,0,0.25);
+width:340px;
+border-radius:25px;
+box-shadow:0 12px 30px rgba(0,0,0,0.25);
+animation:zoomIn 1.2s ease;
+}
+
+@keyframes zoomIn{
+from{transform:scale(.85);opacity:0;}
+to{transform:scale(1);opacity:1;}
 }
 
 /* ===== GALLERY ===== */
@@ -59,27 +99,38 @@ gap:18px;
 
 .gallery img, video{
 width:230px;
-border-radius:15px;
-box-shadow:0 6px 15px rgba(0,0,0,0.2);
+border-radius:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.2);
+transition:.3s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
 }
 
 /* ===== BUTTONS ===== */
 button{
-padding:14px 30px;
+padding:14px 32px;
 margin:15px;
 font-size:18px;
 border:none;
 border-radius:30px;
 cursor:pointer;
+transition:.3s;
 }
 
 .yes{background:#ff4d6d;color:white;}
 .no{background:#888;color:white;}
 
+button:hover{transform:scale(1.08);}
+
 </style>
 </head>
 
 <body>
+
+<div class="shape shape1"></div>
+<div class="shape shape2"></div>
 
 <!-- NAVBAR -->
 <nav>
@@ -91,10 +142,10 @@ cursor:pointer;
 </div>
 </nav>
 
-<!-- HOME PAGE -->
+<!-- HOME -->
 <div id="home" class="section active">
 
-<h1>I wanted to tell you something… ❤️</h1>
+<h1 id="typingText"></h1>
 
 <div class="hero">
 <img src="Master Photo.JPG">
@@ -131,7 +182,6 @@ and I still choose you every day.
 <img src="11.jpg">
 <img src="12.jpg">
 </div>
-
 </div>
 
 <!-- VIDEOS -->
@@ -140,11 +190,11 @@ and I still choose you every day.
 
 <div class="gallery">
 <video controls playsinline>
-<source src="video1.mp4" type="video/mp4">
+<source src="video1.mp4">
 </video>
 
 <video controls playsinline>
-<source src="video2.mp4" type="video/mp4">
+<source src="video2.mp4">
 </video>
 </div>
 
@@ -152,12 +202,12 @@ and I still choose you every day.
 
 <!-- MUSIC -->
 <audio id="bgmusic" autoplay loop>
-<source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3">
 </audio>
 
 <script>
 
-/* SECTION SWITCH */
+/* PAGE SWITCH */
 function showSection(id){
 document.querySelectorAll('.section')
 .forEach(sec=>sec.classList.remove('active'));
@@ -186,6 +236,20 @@ noBtn.style.position="fixed";
 noBtn.style.left=x+"px";
 noBtn.style.top=y+"px";
 }
+
+/* TYPING EFFECT */
+const message="I wanted to tell you something… ❤️";
+let index=0;
+
+function typeWriter(){
+if(index<message.length){
+document.getElementById("typingText").innerHTML+=message.charAt(index);
+index++;
+setTimeout(typeWriter,70);
+}
+}
+
+window.addEventListener("load",typeWriter);
 
 </script>
 
