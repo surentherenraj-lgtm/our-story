@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Message From Your Bubu ❤️</title>
+<title>From Your Bubu ❤️</title>
 
 <style>
 
+/* ---------- BODY ---------- */
 body{
 margin:0;
 font-family:Segoe UI, sans-serif;
@@ -15,7 +16,7 @@ color:#444;
 overflow-x:hidden;
 }
 
-/* NAV */
+/* ---------- NAV ---------- */
 nav{
 position:fixed;
 top:0;
@@ -34,7 +35,7 @@ cursor:pointer;
 font-weight:600;
 }
 
-/* SECTIONS */
+/* ---------- SECTIONS ---------- */
 .section{
 display:none;
 min-height:100vh;
@@ -45,7 +46,7 @@ justify-content:center;
 
 .active{display:flex;}
 
-/* HOME */
+/* ---------- HOME ---------- */
 .home{
 display:flex;
 justify-content:space-between;
@@ -78,7 +79,7 @@ animation:float 5s ease-in-out infinite;
 50%{transform:translateY(-12px);}
 }
 
-/* PROPOSAL */
+/* ---------- PROPOSAL ---------- */
 .proposal{
 position:fixed;
 bottom:30px;
@@ -98,23 +99,12 @@ border-radius:25px;
 margin:6px;
 cursor:pointer;
 font-size:16px;
-transition:.3s;
 }
 
 .yes{background:#ff4d6d;color:white;}
-.no{background:#999;color:white;position:relative;}
+.no{background:#999;color:white;}
 
-.no.fly::before,
-.no.fly::after{
-content:"🪽";
-position:absolute;
-top:-20px;
-}
-
-.no::before{left:-18px;}
-.no::after{right:-18px;}
-
-/* MEMORIES */
+/* ---------- MEMORIES ---------- */
 .gallery{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -131,14 +121,14 @@ transition:.4s;
 transform:scale(1.05);
 }
 
-/* VIDEO */
+/* ---------- VIDEO ---------- */
 video{
 width:70%;
 border-radius:20px;
 box-shadow:0 20px 40px rgba(0,0,0,.25);
 }
 
-/* FINAL SCREEN */
+/* ---------- FINAL SCREEN ---------- */
 #finalScreen{
 position:fixed;
 top:0;
@@ -215,25 +205,17 @@ I will always choose you ❤️
 <!-- MEMORIES -->
 <div id="memories" class="section">
 <div class="gallery">
-<img src="1.jpg">
-<img src="2.jpg">
-<img src="3.jpg">
-<img src="4.jpg">
-<img src="5.jpg">
-<img src="6.jpg">
-<img src="8.jpg">
-<img src="9.jpg">
-<img src="10.jpg">
-<img src="11.jpg">
-<img src="12.jpg">
-<img src="7.heic">
+<img src="1.jpg"><img src="2.jpg"><img src="3.jpg">
+<img src="4.jpg"><img src="5.jpg"><img src="6.jpg">
+<img src="7.heic"><img src="8.jpg"><img src="9.jpg">
+<img src="10.jpg"><img src="11.jpg"><img src="12.jpg">
 </div>
 </div>
 
 <!-- VIDEO -->
 <div id="videos" class="section">
 <video controls>
-<source src="video1.mp4" type="video/mp4">
+<source src="video1.mp4">
 </video>
 </div>
 
@@ -259,7 +241,7 @@ document.querySelectorAll('.section')
 document.getElementById(page).classList.add('active');
 }
 
-/* MUSIC FADE */
+/* MUSIC FADE IN */
 let started=false;
 document.body.addEventListener("click",()=>{
 if(started) return;
@@ -290,23 +272,17 @@ setTimeout(()=>h.remove(),6000);
 },300);
 }
 
-/* NO ESCAPE */
+/* SMOOTH RUNAWAY NO BUTTON */
 const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-let scale=1;
-
-noBtn.addEventListener("mouseover",()=>{
-noBtn.classList.add("fly");
-
-const maxX=window.innerWidth-noBtn.offsetWidth;
-const maxY=window.innerHeight-noBtn.offsetHeight;
-
 noBtn.style.position="fixed";
+noBtn.style.transition="left .35s ease, top .35s ease";
+
+noBtn.addEventListener("mouseenter",()=>{
+const pad=30;
+const maxX=window.innerWidth-noBtn.offsetWidth-pad;
+const maxY=window.innerHeight-noBtn.offsetHeight-pad;
 noBtn.style.left=Math.random()*maxX+"px";
 noBtn.style.top=Math.random()*maxY+"px";
-
-scale+=0.15;
-yesBtn.style.transform=`scale(${scale})`;
 });
 
 </script>
