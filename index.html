@@ -89,26 +89,34 @@ text-align:center;
 font-size:22px;
 color:#b3003c;
 font-weight:600;
-transition:.6s ease;
 }
 
-.proposal.glow{
-text-shadow:
-0 0 8px rgba(255,80,120,0.6),
-0 0 18px rgba(255,80,120,0.4);
-}
-
-button{
+/* YES heartbeat */
+.yes{
+background:#ff4d6d;
+color:white;
 border:none;
-padding:12px 25px;
+padding:12px 26px;
 border-radius:25px;
 margin:6px;
 cursor:pointer;
-font-size:16px;
+animation:heartbeat 2s infinite;
 }
 
-.yes{background:#ff4d6d;color:white;}
-.no{background:#999;color:white;}
+@keyframes heartbeat{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.08);}
+}
+
+.no{
+background:#999;
+color:white;
+border:none;
+padding:12px 26px;
+border-radius:25px;
+margin:6px;
+cursor:pointer;
+}
 
 /* MEMORIES */
 .gallery{
@@ -170,7 +178,7 @@ animation:floatUp 6s linear infinite;
 <body>
 
 <audio id="bgMusic" loop>
-<source src="music.mp3" type="audio/mp3">
+<source src="music.mp3">
 </audio>
 
 <nav>
@@ -228,9 +236,8 @@ I will always choose you ❤️
 
 <!-- PROPOSAL -->
 <div id="proposalBox" class="proposal">
-Will you be my Valentine? ❤️
-<br>
-<button id="yesBtn" class="yes" onclick="yesClick()">YES</button>
+Will you be my Valentine? ❤️<br>
+<button class="yes" onclick="yesClick()">YES</button>
 <button id="noBtn" class="no">NO</button>
 </div>
 
@@ -238,9 +245,7 @@ Will you be my Valentine? ❤️
 <div id="finalScreen">
 Forever Starts Here… ❤️
 <br>
-<span style="font-size:20px;margin-top:15px;">
-You just made my world complete.
-</span>
+<span style="font-size:20px;">You just made my world complete.</span>
 </div>
 
 <script>
@@ -254,7 +259,7 @@ document.getElementById("proposalBox").style.display =
 (page==="home")?"block":"none";
 }
 
-/* MUSIC FADE + GLOW */
+/* MUSIC FADE */
 let started=false;
 document.body.addEventListener("click",()=>{
 if(started) return;
@@ -262,8 +267,6 @@ started=true;
 const music=document.getElementById("bgMusic");
 music.volume=0;
 music.play();
-document.getElementById("proposalBox").classList.add("glow");
-
 let v=0;
 let fade=setInterval(()=>{
 v+=0.02;
@@ -272,30 +275,26 @@ if(v>=0.6) clearInterval(fade);
 },200);
 });
 
-/* SAFE RUNAWAY NO */
+/* SMART NO BUTTON */
 const noBtn=document.getElementById("noBtn");
-noBtn.style.position="fixed";
-noBtn.style.transition="left .35s ease, top .35s ease";
 noBtn.addEventListener("click",e=>e.preventDefault());
 
-function moveNo(){
-const pad=60;
-const maxX=window.innerWidth-noBtn.offsetWidth-pad;
-const minX=pad;
-const maxY=window.innerHeight-220;
-const minY=100;
-noBtn.style.left=Math.random()*(maxX-minX)+minX+"px";
-noBtn.style.top=Math.random()*(maxY-minY)+minY+"px";
+document.addEventListener("mousemove",(e)=>{
+const rect=noBtn.getBoundingClientRect();
+const cx=rect.left+rect.width/2;
+const cy=rect.top+rect.height/2;
+const dist=Math.hypot(e.clientX-cx,e.clientY-cy);
+
+if(dist<130){
+const moveX=(Math.random()-0.5)*140;
+const moveY=(Math.random()-0.5)*40;
+noBtn.style.transform=`translate(${moveX}px,${moveY}px)`;
 }
+});
 
-noBtn.addEventListener("mouseenter",moveNo);
-noBtn.addEventListener("mousemove",moveNo);
-
-/* YES CINEMATIC ENDING */
+/* YES ENDING */
 function yesClick(){
-
-document.body.style.filter="blur(8px) brightness(0.9)";
-
+document.body.style.filter="blur(8px)";
 setTimeout(()=>{
 document.body.style.filter="none";
 document.getElementById("finalScreen").style.display="flex";
@@ -310,10 +309,9 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
 },300);
 
-},1000);
+},900);
 }
 
 </script>
-
 </body>
 </html>
