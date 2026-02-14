@@ -5,6 +5,8 @@
 <title>Our Story ❤️</title>
 
 <style>
+
+/* ===== BACKGROUND ===== */
 body{
 margin:0;
 font-family:Arial, sans-serif;
@@ -13,12 +15,12 @@ color:#333;
 text-align:center;
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 nav{
 display:flex;
 justify-content:space-between;
 padding:20px 40px;
-background:rgba(255,255,255,0.4);
+background:rgba(255,255,255,0.5);
 backdrop-filter:blur(10px);
 }
 
@@ -30,7 +32,7 @@ color:#d6336c;
 text-decoration:none;
 }
 
-/* SECTIONS */
+/* ===== SECTIONS ===== */
 .section{
 display:none;
 padding:60px 20px;
@@ -40,29 +42,30 @@ padding:60px 20px;
 display:block;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero img{
-width:300px;
-border-radius:50%;
-box-shadow:0 8px 20px rgba(0,0,0,0.2);
+width:320px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
-/* GALLERY */
+/* ===== GALLERY ===== */
 .gallery{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:15px;
+gap:18px;
 }
 
 .gallery img, video{
-width:220px;
+width:230px;
 border-radius:15px;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
 }
 
-/* BUTTONS */
+/* ===== BUTTONS ===== */
 button{
-padding:12px 28px;
+padding:14px 30px;
 margin:15px;
 font-size:18px;
 border:none;
@@ -72,11 +75,13 @@ cursor:pointer;
 
 .yes{background:#ff4d6d;color:white;}
 .no{background:#888;color:white;}
+
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav>
 <div><b>Our Story ❤️</b></div>
 <div>
@@ -86,52 +91,80 @@ cursor:pointer;
 </div>
 </nav>
 
-<!-- HOME -->
+<!-- HOME PAGE -->
 <div id="home" class="section active">
-<h1>Happy Valentine's Day ❤️</h1>
-<img src="photo1.jpg">
+
+<h1>I wanted to tell you something… ❤️</h1>
+
+<div class="hero">
+<img src="Master Photo.JPG">
+</div>
+
 <p>
-From your Bubu ❤️<br>
-We have shared so many memories together.
+From your Bubu ❤️<br><br>
+We have shared so many memories together,
+and I still choose you every day.
 </p>
 
 <h2>Will you be my Valentine?</h2>
+
 <button class="yes" onclick="yesClick()">YES</button>
 <button class="no" id="noBtn">NO</button>
+
 </div>
 
 <!-- MEMORIES -->
 <div id="memories" class="section">
 <h2>Our Memories 📸</h2>
+
 <div class="gallery">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo4.jpg">
+<img src="1.jpg">
+<img src="2.jpg">
+<img src="3.jpg">
+<img src="4.jpg">
+<img src="5.jpg">
+<img src="6.jpg">
+<img src="7.heic">
+<img src="8.jpg">
+<img src="9.jpg">
+<img src="10.jpg">
+<img src="11.jpg">
+<img src="12.jpg">
 </div>
+
 </div>
 
 <!-- VIDEOS -->
 <div id="videos" class="section">
 <h2>Our Moments 🎥</h2>
+
 <div class="gallery">
 <video controls playsinline>
 <source src="video1.mp4" type="video/mp4">
 </video>
-</div>
+
+<video controls playsinline>
+<source src="video2.mp4" type="video/mp4">
+</video>
 </div>
 
+</div>
+
+<!-- MUSIC -->
 <audio id="bgmusic" autoplay loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
+/* SECTION SWITCH */
 function showSection(id){
 document.querySelectorAll('.section')
 .forEach(sec=>sec.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
+/* MUSIC */
 let music=document.getElementById("bgmusic");
 music.volume=0.15;
 
@@ -140,7 +173,7 @@ music.volume=1;
 alert("You just made my heart smile ❤️");
 }
 
-/* RUN AWAY NO BUTTON */
+/* RUNNING NO BUTTON */
 const noBtn=document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover",moveBtn);
