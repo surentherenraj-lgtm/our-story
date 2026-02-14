@@ -6,91 +6,125 @@
 
 <style>
 
+/* ===== PAGE BACKGROUND ===== */
 body{
 margin:0;
-font-family:Georgia, serif;
-background:#fafafa;
-color:#333;
-line-height:1.7;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#ffccd5,#ffe5ec,#fff1f5);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
-/* NAV */
-nav{
-padding:20px 50px;
-background:white;
-box-shadow:0 2px 8px rgba(0,0,0,.05);
+/* ===== MAIN CARD (LIKE TEMPLATE) ===== */
+.container{
+width:90%;
+max-width:1100px;
+background:linear-gradient(135deg,#ff8fab,#ffc2d1);
+border-radius:25px;
+padding:50px;
+box-shadow:0 30px 60px rgba(0,0,0,.2);
+position:relative;
+overflow:hidden;
+}
+
+/* SOFT SHAPES */
+.container::before{
+content:"";
+position:absolute;
+width:400px;
+height:400px;
+background:#ffffff33;
+border-radius:50%;
+top:-120px;
+right:-120px;
+}
+
+.container::after{
+content:"";
+position:absolute;
+width:250px;
+height:250px;
+background:#ffffff22;
+border-radius:50%;
+bottom:-80px;
+left:-80px;
+}
+
+/* LAYOUT */
+.hero{
 display:flex;
+align-items:center;
 justify-content:space-between;
 }
 
-nav a{
-margin-left:20px;
-cursor:pointer;
-text-decoration:none;
-color:#444;
-font-weight:600;
+/* LEFT MESSAGE */
+.left{
+width:50%;
+color:white;
 }
 
-/* SECTION */
-.section{
-display:none;
-max-width:900px;
-margin:auto;
-padding:60px 20px;
+.left h1{
+font-size:48px;
+margin-bottom:20px;
 }
 
-.active{display:block;}
-
-/* LETTER STYLE */
-.letter{
-font-size:22px;
-margin-bottom:40px;
+.left p{
+font-size:18px;
+line-height:1.6;
 }
 
-/* MAIN PHOTO */
-.mainPhoto{
+/* RIGHT PHOTO */
+.right{
+width:40%;
 text-align:center;
-margin:40px 0;
 }
 
-.mainPhoto img{
-width:70%;
-border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,.2);
+.right img{
+width:100%;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 
-/* QUESTION */
+/* QUESTION AREA */
 .question{
-text-align:center;
-margin-top:50px;
+margin-top:30px;
 }
 
 button{
-padding:12px 28px;
+padding:12px 26px;
 margin:10px;
 border:none;
-border-radius:25px;
+border-radius:30px;
 font-size:16px;
 cursor:pointer;
 }
 
-.yes{background:#e63946;color:white;}
-.no{background:#aaa;color:white;}
-
-/* TIMELINE */
-.timeline img{
-width:100%;
-margin:60px 0;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,.15);
-opacity:0;
-transform:translateY(40px);
-transition:1s;
+.yes{
+background:white;
+color:#ff4d6d;
+font-weight:bold;
 }
 
-.timeline img.show{
-opacity:1;
-transform:translateY(0);
+.no{
+background:#ffffff88;
+color:white;
+}
+
+/* NAVBAR */
+nav{
+position:absolute;
+top:20px;
+right:30px;
+}
+
+nav a{
+margin-left:20px;
+color:white;
+font-weight:600;
+cursor:pointer;
+text-decoration:none;
 }
 
 /* LOVE SCREEN */
@@ -106,7 +140,7 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 font-size:26px;
-color:#e63946;
+color:#ff4d6d;
 }
 
 </style>
@@ -114,57 +148,47 @@ color:#e63946;
 
 <body>
 
+<div class="container">
+
 <nav>
-<div><b>Our Story ❤️</b></div>
-<div>
 <a onclick="showSection('home')">Home</a>
 <a onclick="showSection('memories')">Memories</a>
-</div>
+<a onclick="showSection('videos')">Videos</a>
 </nav>
 
-<!-- HOME (LOVE LETTER) -->
-<div id="home" class="section active">
+<div id="home">
 
-<div class="letter" id="typing"></div>
+<div class="hero">
 
-<div class="mainPhoto">
+<div class="left">
+<h1 id="typing"></h1>
+
+<p>
+From your Bubu ❤️<br><br>
+We have shared so many moments together,
+and I still choose you every day.
+</p>
+
+<div class="question">
+<h3>Will you be my Valentine?</h3>
+<button class="yes" onclick="yesClick()">YES</button>
+<button class="no" id="noBtn">NO</button>
+</div>
+
+</div>
+
+<div class="right">
 <img src="Master Photo.JPG">
 </div>
 
-<div class="question">
-<h2>Will you be my Valentine?</h2>
-<button class="yes" onclick="yesClick()">Yes</button>
-<button class="no" id="noBtn">No</button>
 </div>
-
-</div>
-
-<!-- MEMORIES (STORY TIMELINE) -->
-<div id="memories" class="section">
-
-<h2>Our Memories ❤️</h2>
-
-<div class="timeline">
-<img src="1.jpg">
-<img src="2.jpg">
-<img src="3.jpg">
-<img src="4.jpg">
-<img src="5.jpg">
-<img src="6.jpg">
-<img src="7.heic">
-<img src="8.jpg">
-<img src="9.jpg">
-<img src="10.jpg">
-<img src="11.jpg">
-<img src="12.jpg">
 </div>
 
 </div>
 
 <!-- LOVE MESSAGE -->
 <div id="loveScreen">
-💌 I will always choose you.<br><br>
-Thank you for being my forever ❤️
+💌 I will always choose you ❤️
 </div>
 
 <audio id="music" autoplay loop>
@@ -173,35 +197,26 @@ Thank you for being my forever ❤️
 
 <script>
 
-/* NAVIGATION */
-function showSection(id){
-document.querySelectorAll('.section')
-.forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-}
-
-/* LETTER TYPING */
-const message=
-"From your Bubu ❤️\n\nWe have shared so many moments together...\nAnd somehow, every day, I still choose you again.\n\nI wanted to ask you something special.";
-
+/* TYPE LETTER */
+const message="Happy Valentine ❤️";
 let i=0;
-function typeWriter(){
+function typing(){
 if(i<message.length){
-document.getElementById("typing").innerHTML+=
-message.charAt(i)=="\n"?"<br>":message.charAt(i);
+document.getElementById("typing").innerHTML+=message.charAt(i);
 i++;
-setTimeout(typeWriter,50);
+setTimeout(typing,60);
 }}
-typeWriter();
+typing();
 
 /* MUSIC */
 let music=document.getElementById("music");
 music.volume=0.2;
 
-/* YES CLICK */
+/* YES */
 function yesClick(){
 music.volume=1;
 document.getElementById("loveScreen").style.display="flex";
+
 setTimeout(()=>{
 document.getElementById("loveScreen").style.display="none";
 },15000);
@@ -211,21 +226,9 @@ document.getElementById("loveScreen").style.display="none";
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
 noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*300+"px";
-noBtn.style.top=Math.random()*200+"px";
+noBtn.style.left=Math.random()*200+"px";
+noBtn.style.top=Math.random()*150+"px";
 });
-
-/* TIMELINE REVEAL */
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
-}
-});
-});
-
-document.querySelectorAll(".timeline img")
-.forEach(img=>observer.observe(img));
 
 </script>
 
