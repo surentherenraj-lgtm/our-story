@@ -14,9 +14,10 @@ background:linear-gradient(120deg,#ffd6e0,#ffeef3,#fff5f8);
 overflow-x:hidden;
 color:#333;
 text-align:center;
+transition:1s;
 }
 
-/* ===== FLOATING SHAPES ===== */
+/* ===== FLOATING BACKGROUND ===== */
 .shape{
 position:fixed;
 border-radius:50%;
@@ -81,12 +82,6 @@ to{opacity:1;transform:translateY(0);}
 width:340px;
 border-radius:25px;
 box-shadow:0 12px 30px rgba(0,0,0,0.25);
-animation:zoomIn 1.2s ease;
-}
-
-@keyframes zoomIn{
-from{transform:scale(.85);opacity:0;}
-to{transform:scale(1);opacity:1;}
 }
 
 /* ===== GALLERY ===== */
@@ -101,11 +96,6 @@ gap:18px;
 width:230px;
 border-radius:18px;
 box-shadow:0 8px 20px rgba(0,0,0,.2);
-transition:.3s;
-}
-
-.gallery img:hover{
-transform:scale(1.05);
 }
 
 /* ===== BUTTONS ===== */
@@ -116,13 +106,43 @@ font-size:18px;
 border:none;
 border-radius:30px;
 cursor:pointer;
-transition:.3s;
 }
 
 .yes{background:#ff4d6d;color:white;}
 .no{background:#888;color:white;}
 
 button:hover{transform:scale(1.08);}
+
+/* ===== LOVE LETTER SCREEN ===== */
+#loveLetter{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#ffccd5,#ffe6eb);
+color:#d6336c;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:28px;
+padding:30px;
+animation:fadeIn 2s ease;
+}
+
+/* ===== HEARTS ===== */
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:24px;
+animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-900px);opacity:0;}
+}
 
 </style>
 </head>
@@ -197,7 +217,12 @@ and I still choose you every day.
 <source src="video2.mp4">
 </video>
 </div>
+</div>
 
+<!-- LOVE LETTER FINAL SCREEN -->
+<div id="loveLetter">
+💌 Thank you for choosing us again and again.<br><br>
+I will always choose you. ❤️
 </div>
 
 <!-- MUSIC -->
@@ -218,9 +243,23 @@ document.getElementById(id).classList.add('active');
 let music=document.getElementById("bgmusic");
 music.volume=0.15;
 
+/* YES CLICK FINAL MAGIC */
 function yesClick(){
 music.volume=1;
-alert("You just made my heart smile ❤️");
+document.getElementById("loveLetter").style.display="flex";
+createHearts();
+}
+
+/* FLOATING HEARTS */
+function createHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},300);
 }
 
 /* RUNNING NO BUTTON */
