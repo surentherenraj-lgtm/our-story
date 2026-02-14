@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Our Story ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ffd6e0,#ffe6eb,#fff0f5);
+color:#333;
+text-align:center;
+}
+
+/* NAVBAR */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(10px);
+}
+
+nav a{
+margin-left:20px;
+cursor:pointer;
+font-weight:bold;
+color:#d6336c;
+text-decoration:none;
+}
+
+/* SECTIONS */
+.section{
+display:none;
+padding:60px 20px;
+}
+
+.active{
+display:block;
+}
+
+/* HERO */
+.hero img{
+width:300px;
+border-radius:50%;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* GALLERY */
+.gallery{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.gallery img, video{
+width:220px;
+border-radius:15px;
+}
+
+/* BUTTONS */
+button{
+padding:12px 28px;
+margin:15px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+}
+
+.yes{background:#ff4d6d;color:white;}
+.no{background:#888;color:white;}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div><b>Our Story ❤️</b></div>
+<div>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('memories')">Memories</a>
+<a onclick="showSection('videos')">Videos</a>
+</div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section active">
+<h1>Happy Valentine's Day ❤️</h1>
+<img src="photo1.jpg">
+<p>
+From your Bubu ❤️<br>
+We have shared so many memories together.
+</p>
+
+<h2>Will you be my Valentine?</h2>
+<button class="yes" onclick="yesClick()">YES</button>
+<button class="no" id="noBtn">NO</button>
+</div>
+
+<!-- MEMORIES -->
+<div id="memories" class="section">
+<h2>Our Memories 📸</h2>
+<div class="gallery">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
+</div>
+</div>
+
+<!-- VIDEOS -->
+<div id="videos" class="section">
+<h2>Our Moments 🎥</h2>
+<div class="gallery">
+<video controls playsinline>
+<source src="video1.mp4" type="video/mp4">
+</video>
+</div>
+</div>
+
+<audio id="bgmusic" autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function showSection(id){
+document.querySelectorAll('.section')
+.forEach(sec=>sec.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+let music=document.getElementById("bgmusic");
+music.volume=0.15;
+
+function yesClick(){
+music.volume=1;
+alert("You just made my heart smile ❤️");
+}
+
+/* RUN AWAY NO BUTTON */
+const noBtn=document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",moveBtn);
+noBtn.addEventListener("touchstart",moveBtn);
+
+function moveBtn(){
+const x=Math.random()*(window.innerWidth-120);
+const y=Math.random()*(window.innerHeight-60);
+noBtn.style.position="fixed";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+
+</script>
+
+</body>
+</html>
