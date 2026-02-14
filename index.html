@@ -2,100 +2,117 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Our Story</title>
+<title>Our Story ❤️</title>
 
 <style>
 
-/* ===== BODY ===== */
+/* ===== BODY THEME ===== */
 body{
 margin:0;
-font-family:Helvetica, Arial;
-background:linear-gradient(120deg,#f6f7fb,#fdf2f5);
-overflow:hidden;
+font-family:Segoe UI, Arial;
+background:linear-gradient(135deg,#ffe3ec,#f8f9ff);
 color:#333;
+overflow-x:hidden;
 }
 
-/* ===== HERO LAYOUT ===== */
+/* ===== NAVBAR ===== */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:white;
+box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+nav a{
+margin-left:25px;
+cursor:pointer;
+font-weight:600;
+color:#444;
+text-decoration:none;
+}
+
+/* ===== SECTIONS ===== */
+.section{display:none;padding:50px 8%;}
+.active{display:block;}
+
+/* ===== HERO ===== */
 .hero{
 display:flex;
-height:100vh;
 align-items:center;
 justify-content:space-between;
-padding:0 8%;
+min-height:80vh;
 }
 
-/* LEFT TEXT */
-.left{
-width:40%;
-}
+.left{width:45%;}
+.left h1{font-size:44px;}
+.left p{line-height:1.7;}
 
-.left h1{
-font-size:42px;
-margin-bottom:20px;
-}
-
-.left p{
-font-size:18px;
-line-height:1.6;
-}
-
-/* CENTER PHOTO */
-.center{
-width:35%;
-text-align:center;
-}
-
+.center{width:30%;text-align:center;}
 .center img{
 width:100%;
 border-radius:25px;
 box-shadow:0 20px 40px rgba(0,0,0,.2);
-animation:float 5s ease-in-out infinite;
 }
 
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-}
-
-/* RIGHT QUESTION */
 .right{
 width:25%;
 text-align:center;
-position:relative;
 }
 
-.right h2{
-font-size:26px;
-margin-bottom:20px;
-}
-
-/* BUTTONS */
 button{
-padding:14px 28px;
+padding:12px 26px;
 margin:10px;
-font-size:18px;
 border:none;
 border-radius:30px;
+font-size:16px;
 cursor:pointer;
 }
 
-.yes{background:#e63946;color:white;}
-.no{background:#999;color:white;}
+.yes{background:#ff4d6d;color:white;}
+.no{background:#aaa;color:white;}
 
-button:hover{transform:scale(1.1);}
-
-/* ===== CUPID ARROW ===== */
-.arrow{
-position:fixed;
-top:40%;
-left:-150px;
-font-size:40px;
-animation:shoot 6s linear infinite;
+/* ===== MEMORY CINEMATIC VIEW ===== */
+.memoryViewer{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+position:relative;
 }
 
-@keyframes shoot{
-0%{left:-150px; transform:rotate(-20deg);}
-100%{left:110%; transform:rotate(10deg);}
+.memoryViewer img{
+max-width:70%;
+border-radius:20px;
+box-shadow:0 25px 50px rgba(0,0,0,.25);
+transition:transform .8s, opacity .8s;
+}
+
+/* zoom animation */
+.zoomIn{
+transform:scale(1);
+opacity:1;
+}
+
+.zoomOut{
+transform:scale(1.2);
+opacity:0;
+}
+
+/* ===== VIDEO ===== */
+.gallery{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+video{
+width:320px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
 /* ===== LOVE SCREEN ===== */
@@ -106,18 +123,13 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:#ffffff;
+background:white;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 font-size:28px;
-color:#e63946;
-animation:fade 1s;
-}
-
-@keyframes fade{
-from{opacity:0;}
-to{opacity:1;}
+color:#ff4d6d;
+z-index:10;
 }
 
 </style>
@@ -125,32 +137,59 @@ to{opacity:1;}
 
 <body>
 
-<div class="arrow">🏹❤️</div>
+<!-- NAVBAR -->
+<nav>
+<div><b>Our Story ❤️</b></div>
+<div>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('memories')">Memories</a>
+<a onclick="showSection('videos')">Videos</a>
+</div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section active">
 
 <div class="hero">
 
-<!-- LEFT TEXT -->
 <div class="left">
 <h1 id="typing"></h1>
-
 <p>
-From your Bubu ❤️ <br><br>
+From your Bubu ❤️<br><br>
 We have shared so many memories together,
 and I still choose you every single day.
 </p>
 </div>
 
-<!-- CENTER PHOTO -->
 <div class="center">
 <img src="Master Photo.JPG">
 </div>
 
-<!-- RIGHT QUESTION -->
 <div class="right">
-<h2>Will you be my Valentine?</h2>
-
+<h3>Will you be my Valentine?</h3>
 <button class="yes" onclick="yesClick()">YES</button>
 <button class="no" id="noBtn">NO</button>
+</div>
+
+</div>
+</div>
+
+<!-- MEMORIES (CINEMATIC) -->
+<div id="memories" class="section">
+
+<div class="memoryViewer">
+<img id="memoryImage" src="1.jpg" class="zoomIn">
+</div>
+
+</div>
+
+<!-- VIDEOS -->
+<div id="videos" class="section">
+<h2 style="text-align:center;">Our Moments 🎥</h2>
+
+<div class="gallery">
+<video controls><source src="video1.mp4"></video>
+<video controls><source src="video2.mp4"></video>
 </div>
 
 </div>
@@ -161,14 +200,20 @@ and I still choose you every single day.
 I will always choose you ❤️
 </div>
 
-<!-- MUSIC -->
 <audio id="music" autoplay loop>
 <source src="music.mp3">
 </audio>
 
 <script>
 
-/* TYPING TEXT */
+/* NAVIGATION */
+function showSection(id){
+document.querySelectorAll('.section')
+.forEach(sec=>sec.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+/* TYPING */
 const text="I wanted to tell you something… ❤️";
 let i=0;
 function typing(){
@@ -176,8 +221,7 @@ if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
 i++;
 setTimeout(typing,70);
-}
-}
+}}
 typing();
 
 /* MUSIC */
@@ -189,17 +233,15 @@ function yesClick(){
 music.volume=1;
 document.getElementById("loveScreen").style.display="flex";
 
-/* RETURN AFTER 15 SEC */
 setTimeout(()=>{
 document.getElementById("loveScreen").style.display="none";
+showSection('home');
 },15000);
 }
 
-/* RUN AWAY NO BUTTON */
+/* RUN AWAY NO */
 const noBtn=document.getElementById("noBtn");
-
 noBtn.addEventListener("mouseover",moveBtn);
-noBtn.addEventListener("touchstart",moveBtn);
 
 function moveBtn(){
 const x=Math.random()*(window.innerWidth-120);
@@ -208,6 +250,29 @@ noBtn.style.position="fixed";
 noBtn.style.left=x+"px";
 noBtn.style.top=y+"px";
 }
+
+/* ===== CINEMATIC MEMORY SCROLL ===== */
+const memories=[
+"1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg",
+"7.heic","8.jpg","9.jpg","10.jpg","11.jpg","12.jpg"
+];
+
+let index=0;
+const img=document.getElementById("memoryImage");
+
+window.addEventListener("wheel",(e)=>{
+if(!document.getElementById("memories").classList.contains("active")) return;
+
+img.classList.remove("zoomIn");
+img.classList.add("zoomOut");
+
+setTimeout(()=>{
+index=(index+(e.deltaY>0?1:-1)+memories.length)%memories.length;
+img.src=memories[index];
+img.classList.remove("zoomOut");
+img.classList.add("zoomIn");
+},400);
+});
 
 </script>
 
