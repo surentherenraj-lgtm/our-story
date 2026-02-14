@@ -1,169 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>A Message For You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Message From Your Bubu ❤️</title>
 
 <style>
 
-/* ===== LETTER OPENING EFFECT ===== */
+/* ---------- GLOBAL ---------- */
 body{
-margin:0;
-font-family:Segoe UI, sans-serif;
-background:linear-gradient(135deg,#fff6f8,#ffe6ee);
-overflow-x:hidden;
-opacity:0;
-animation:letterOpen 1.6s ease forwards;
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:linear-gradient(135deg,#fff3f6,#ffe4ea);
+    overflow-x:hidden;
 }
 
-@keyframes letterOpen{
-0%{opacity:0; transform:translateY(40px);}
-100%{opacity:1; transform:translateY(0);}
-}
-
-/* ===== SOFT BACKGROUND MOTION ===== */
-body::before, body::after{
-content:"";
-position:fixed;
-border-radius:50%;
-filter:blur(90px);
-z-index:-1;
-}
-
-body::before{
-width:500px;height:500px;
-background:#ffd6e0;
-top:-150px;left:-120px;
-animation:move1 15s infinite alternate;
-}
-body::after{
-width:450px;height:450px;
-background:#ffc2d1;
-bottom:-150px;right:-120px;
-animation:move2 18s infinite alternate;
-}
-
-@keyframes move1{from{transform:translateY(0)}to{transform:translateY(60px)}}
-@keyframes move2{from{transform:translateY(0)}to{transform:translateY(-60px)}}
-
-/* ===== NAVBAR ===== */
+/* ---------- NAVBAR ---------- */
 nav{
-position:fixed;
-top:25px;
-right:50px;
-z-index:999;
-font-weight:600;
+    position:fixed;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    gap:30px;
+    padding:20px 40px;
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(10px);
+    z-index:1000;
 }
 
 nav a{
-margin-left:30px;
-cursor:pointer;
-color:#444;
-text-decoration:none;
+    text-decoration:none;
+    color:#444;
+    font-weight:600;
+    cursor:pointer;
 }
 
-/* ===== SECTIONS ===== */
+/* ---------- SECTIONS ---------- */
 .section{
-position:absolute;
-width:100%;
-min-height:100vh;
-padding:100px 8%;
-box-sizing:border-box;
-opacity:0;
-transform:translateY(30px);
-transition:all .6s ease;
-pointer-events:none;
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:80px 10%;
 }
 
-.section.active{
-opacity:1;
-transform:translateY(0);
-pointer-events:auto;
+.active{
+    display:flex;
 }
 
-/* ===== HOME ===== */
-.home{
-display:flex;
-align-items:center;
-justify-content:space-between;
-position:relative;
+/* ---------- HOME LAYOUT ---------- */
+.home-container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:60px;
+    width:100%;
 }
 
-.left{width:45%;}
-.left h1{font-size:42px;color:#444;}
-.left p{font-size:18px;color:#666;line-height:1.7;}
-
-.right{width:45%;text-align:center;}
-.right img{
-width:85%;
-border-radius:20px;
-box-shadow:0 25px 60px rgba(0,0,0,.25);
+.text-side{
+    max-width:500px;
 }
 
-/* PROPOSAL */
-.proposal{
-position:absolute;
-right:80px;
-bottom:60px;
-text-align:center;
+.text-side h1{
+    font-size:42px;
+    margin-bottom:10px;
 }
 
-button{
-padding:12px 26px;
-border:none;
-border-radius:25px;
-font-size:16px;
-margin:10px;
-cursor:pointer;
+.text-side p{
+    color:#555;
+    line-height:1.6;
 }
 
-.yes{background:#ff4d6d;color:white;}
-.no{background:#ccc;}
+.photo-side img{
+    width:420px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+    animation:float 4s ease-in-out infinite;
+}
 
-/* ===== MEMORIES ===== */
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+
+/* ---------- PROPOSAL ---------- */
+.proposal-box{
+    position:fixed;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    padding:20px 40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+.buttons button{
+    border:none;
+    padding:12px 25px;
+    border-radius:25px;
+    margin:10px;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.yes-btn{
+    background:#ff4d6d;
+    color:white;
+}
+
+.no-btn{
+    background:#aaa;
+    color:white;
+    position:relative;
+}
+
+/* wings */
+.no-btn::before,
+.no-btn::after{
+    content:"🪽";
+    position:absolute;
+    top:-20px;
+    opacity:0;
+}
+
+.no-btn.fly::before,
+.no-btn.fly::after{
+    opacity:1;
+}
+
+.no-btn::before{ left:-18px; }
+.no-btn::after{ right:-18px; }
+
+/* ---------- MEMORIES ---------- */
 .gallery{
-width:85%;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-gap:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
 }
 
 .gallery img{
-width:100%;
-border-radius:18px;
-box-shadow:0 15px 35px rgba(0,0,0,.15);
-transition:.3s;
-}
-.gallery img:hover{transform:scale(1.05);}
-
-/* ===== VIDEO ===== */
-.video{text-align:center;}
-
-video{
-width:70%;
-max-width:700px;
-border-radius:20px;
-box-shadow:0 25px 60px rgba(0,0,0,.25);
+    width:100%;
+    border-radius:15px;
+    transition:.4s;
 }
 
-/* ===== SECRET MESSAGE ===== */
-#loveScreen{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:white;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px;
-font-size:22px;
-line-height:1.8;
-color:#444;
-z-index:2000;
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+/* ---------- VIDEO ---------- */
+.video-box video{
+    width:70%;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
 }
 
 </style>
@@ -173,34 +166,26 @@ z-index:2000;
 
 <!-- NAV -->
 <nav>
-<a onclick="showSection('home')">Home</a>
-<a onclick="showSection('memories')">Memories</a>
-<a onclick="showSection('video')">Video</a>
+<a onclick="showPage('home')">Home</a>
+<a onclick="showPage('memories')">Memories</a>
+<a onclick="showPage('videos')">Videos</a>
 </nav>
 
 <!-- HOME -->
 <div id="home" class="section active">
-<div class="home">
+<div class="home-container">
 
-<div class="left">
-<h1>I wanted to tell you something… ❤️</h1>
-
+<div class="text-side">
+<h1>I wanted to tell you something... ❤️</h1>
 <p>
-From your Bubu ❤️<br><br>
+From your Bubu ❤️ <br><br>
 We have shared so many beautiful moments together,
-and somehow every single day,
-I still choose you again.
+and somehow every single day… I still choose you again.
 </p>
 </div>
 
-<div class="right">
+<div class="photo-side">
 <img src="Master Photo.JPG">
-</div>
-
-<div class="proposal">
-<h3>Will you be my Valentine?</h3>
-<button class="yes" onclick="yesClick()">YES</button>
-<button class="no" id="noBtn">NO</button>
 </div>
 
 </div>
@@ -208,8 +193,6 @@ I still choose you again.
 
 <!-- MEMORIES -->
 <div id="memories" class="section">
-<h1 style="text-align:center;">Our Memories 📸</h1>
-
 <div class="gallery">
 <img src="1.jpg">
 <img src="2.jpg">
@@ -227,58 +210,58 @@ I still choose you again.
 </div>
 
 <!-- VIDEO -->
-<div id="video" class="section video">
-<h1>Our Special Moment ❤️</h1>
-<p>Every memory with you feels like a beautiful movie…</p>
-
-<video controls autoplay loop>
-<source src="video1.mp4">
+<div id="videos" class="section">
+<div class="video-box">
+<video controls>
+<source src="video1.mp4" type="video/mp4">
 </video>
 </div>
+</div>
 
-<!-- SECRET LOVE LETTER -->
-<div id="loveScreen">
-From your Bubu ❤️<br><br>
+<!-- PROPOSAL -->
+<div class="proposal-box">
+<h2>Will you be my Valentine? ❤️</h2>
 
-Every memory with you has become a part of who I am.<br>
-The laughter, the small fights, the late conversations —
-all of it means everything to me.<br><br>
-
-Loving you was never a decision… it just happened naturally,
-and it still happens every day.<br><br>
-
-<b>I will always choose you ❤️</b>
+<div class="buttons">
+<button id="yesBtn" class="yes-btn" onclick="yesClicked()">YES</button>
+<button id="noBtn" class="no-btn">NO</button>
+</div>
 </div>
 
 <script>
 
 /* NAVIGATION */
-function showSection(id){
-document.querySelectorAll('.section').forEach(sec=>{
-sec.classList.remove('active');
-});
-setTimeout(()=>{
-document.getElementById(id).classList.add('active');
-window.scrollTo(0,0);
-},50);
+function showPage(page){
+    document.querySelectorAll(".section")
+        .forEach(sec=>sec.classList.remove("active"));
+
+    document.getElementById(page).classList.add("active");
 }
 
-/* YES BUTTON */
-function yesClick(){
-document.getElementById("loveScreen").style.display="flex";
-
-setTimeout(()=>{
-document.getElementById("loveScreen").style.display="none";
-showSection('memories');
-},15000);
+/* YES SUCCESS */
+function yesClicked(){
+    alert("You just made me the happiest person ❤️");
 }
 
-/* NO BUTTON ESCAPE */
+/* NO BUTTON ESCAPE + YES GROW */
 const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+let scale=1;
+
 noBtn.addEventListener("mouseover",()=>{
-noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*80+"%";
-noBtn.style.top=Math.random()*80+"%";
+
+    noBtn.classList.add("fly");
+
+    const maxX=window.innerWidth-noBtn.offsetWidth;
+    const maxY=window.innerHeight-noBtn.offsetHeight;
+
+    noBtn.style.position="fixed";
+    noBtn.style.left=Math.random()*maxX+"px";
+    noBtn.style.top=Math.random()*maxY+"px";
+
+    /* YES grows */
+    scale+=0.15;
+    yesBtn.style.transform=`scale(${scale})`;
 });
 
 </script>
