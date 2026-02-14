@@ -2,120 +2,98 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Our Story ❤️</title>
+<title>A Message For You ❤️</title>
 
 <style>
 
-/* ===== BODY THEME ===== */
 body{
 margin:0;
-font-family:Segoe UI, Arial;
-background:linear-gradient(135deg,#ffe3ec,#f8f9ff);
+font-family:Georgia, serif;
+background:#fafafa;
 color:#333;
-overflow-x:hidden;
+line-height:1.7;
 }
 
-/* ===== NAVBAR ===== */
+/* NAV */
 nav{
+padding:20px 50px;
+background:white;
+box-shadow:0 2px 8px rgba(0,0,0,.05);
 display:flex;
 justify-content:space-between;
-align-items:center;
-padding:20px 60px;
-background:white;
-box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
 
 nav a{
-margin-left:25px;
+margin-left:20px;
 cursor:pointer;
-font-weight:600;
-color:#444;
 text-decoration:none;
+color:#444;
+font-weight:600;
 }
 
-/* ===== SECTIONS ===== */
-.section{display:none;padding:50px 8%;}
+/* SECTION */
+.section{
+display:none;
+max-width:900px;
+margin:auto;
+padding:60px 20px;
+}
+
 .active{display:block;}
 
-/* ===== HERO ===== */
-.hero{
-display:flex;
-align-items:center;
-justify-content:space-between;
-min-height:80vh;
+/* LETTER STYLE */
+.letter{
+font-size:22px;
+margin-bottom:40px;
 }
 
-.left{width:45%;}
-.left h1{font-size:44px;}
-.left p{line-height:1.7;}
-
-.center{width:30%;text-align:center;}
-.center img{
-width:100%;
-border-radius:25px;
-box-shadow:0 20px 40px rgba(0,0,0,.2);
-}
-
-.right{
-width:25%;
+/* MAIN PHOTO */
+.mainPhoto{
 text-align:center;
+margin:40px 0;
+}
+
+.mainPhoto img{
+width:70%;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+/* QUESTION */
+.question{
+text-align:center;
+margin-top:50px;
 }
 
 button{
-padding:12px 26px;
+padding:12px 28px;
 margin:10px;
 border:none;
-border-radius:30px;
+border-radius:25px;
 font-size:16px;
 cursor:pointer;
 }
 
-.yes{background:#ff4d6d;color:white;}
+.yes{background:#e63946;color:white;}
 .no{background:#aaa;color:white;}
 
-/* ===== MEMORY CINEMATIC VIEW ===== */
-.memoryViewer{
-height:90vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
-position:relative;
-}
-
-.memoryViewer img{
-max-width:70%;
-border-radius:20px;
-box-shadow:0 25px 50px rgba(0,0,0,.25);
-transition:transform .8s, opacity .8s;
-}
-
-/* zoom animation */
-.zoomIn{
-transform:scale(1);
-opacity:1;
-}
-
-.zoomOut{
-transform:scale(1.2);
-opacity:0;
-}
-
-/* ===== VIDEO ===== */
-.gallery{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-video{
-width:320px;
+/* TIMELINE */
+.timeline img{
+width:100%;
+margin:60px 0;
 border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+opacity:0;
+transform:translateY(40px);
+transition:1s;
 }
 
-/* ===== LOVE SCREEN ===== */
+.timeline img.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* LOVE SCREEN */
 #loveScreen{
 display:none;
 position:fixed;
@@ -127,9 +105,8 @@ background:white;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-font-size:28px;
-color:#ff4d6d;
-z-index:10;
+font-size:26px;
+color:#e63946;
 }
 
 </style>
@@ -137,67 +114,56 @@ z-index:10;
 
 <body>
 
-<!-- NAVBAR -->
 <nav>
 <div><b>Our Story ❤️</b></div>
 <div>
 <a onclick="showSection('home')">Home</a>
 <a onclick="showSection('memories')">Memories</a>
-<a onclick="showSection('videos')">Videos</a>
 </div>
 </nav>
 
-<!-- HOME -->
+<!-- HOME (LOVE LETTER) -->
 <div id="home" class="section active">
 
-<div class="hero">
+<div class="letter" id="typing"></div>
 
-<div class="left">
-<h1 id="typing"></h1>
-<p>
-From your Bubu ❤️<br><br>
-We have shared so many memories together,
-and I still choose you every single day.
-</p>
-</div>
-
-<div class="center">
+<div class="mainPhoto">
 <img src="Master Photo.JPG">
 </div>
 
-<div class="right">
-<h3>Will you be my Valentine?</h3>
-<button class="yes" onclick="yesClick()">YES</button>
-<button class="no" id="noBtn">NO</button>
+<div class="question">
+<h2>Will you be my Valentine?</h2>
+<button class="yes" onclick="yesClick()">Yes</button>
+<button class="no" id="noBtn">No</button>
 </div>
 
 </div>
-</div>
 
-<!-- MEMORIES (CINEMATIC) -->
+<!-- MEMORIES (STORY TIMELINE) -->
 <div id="memories" class="section">
 
-<div class="memoryViewer">
-<img id="memoryImage" src="1.jpg" class="zoomIn">
-</div>
+<h2>Our Memories ❤️</h2>
 
-</div>
-
-<!-- VIDEOS -->
-<div id="videos" class="section">
-<h2 style="text-align:center;">Our Moments 🎥</h2>
-
-<div class="gallery">
-<video controls><source src="video1.mp4"></video>
-<video controls><source src="video2.mp4"></video>
+<div class="timeline">
+<img src="1.jpg">
+<img src="2.jpg">
+<img src="3.jpg">
+<img src="4.jpg">
+<img src="5.jpg">
+<img src="6.jpg">
+<img src="8.jpg">
+<img src="9.jpg">
+<img src="10.jpg">
+<img src="11.jpg">
+<img src="12.jpg">
 </div>
 
 </div>
 
 <!-- LOVE MESSAGE -->
 <div id="loveScreen">
-💌 Thank you for choosing us again and again.<br><br>
-I will always choose you ❤️
+💌 I will always choose you.<br><br>
+Thank you for being my forever ❤️
 </div>
 
 <audio id="music" autoplay loop>
@@ -209,20 +175,23 @@ I will always choose you ❤️
 /* NAVIGATION */
 function showSection(id){
 document.querySelectorAll('.section')
-.forEach(sec=>sec.classList.remove('active'));
+.forEach(s=>s.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
-/* TYPING */
-const text="I wanted to tell you something… ❤️";
+/* LETTER TYPING */
+const message=
+"From your Bubu ❤️\n\nWe have shared so many moments together...\nAnd somehow, every day, I still choose you again.\n\nI wanted to ask you something special.";
+
 let i=0;
-function typing(){
-if(i<text.length){
-document.getElementById("typing").innerHTML+=text.charAt(i);
+function typeWriter(){
+if(i<message.length){
+document.getElementById("typing").innerHTML+=
+message.charAt(i)=="\n"?"<br>":message.charAt(i);
 i++;
-setTimeout(typing,70);
+setTimeout(typeWriter,50);
 }}
-typing();
+typeWriter();
 
 /* MUSIC */
 let music=document.getElementById("music");
@@ -232,47 +201,30 @@ music.volume=0.2;
 function yesClick(){
 music.volume=1;
 document.getElementById("loveScreen").style.display="flex";
-
 setTimeout(()=>{
 document.getElementById("loveScreen").style.display="none";
-showSection('home');
 },15000);
 }
 
 /* RUN AWAY NO */
 const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",moveBtn);
-
-function moveBtn(){
-const x=Math.random()*(window.innerWidth-120);
-const y=Math.random()*(window.innerHeight-60);
-noBtn.style.position="fixed";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-}
-
-/* ===== CINEMATIC MEMORY SCROLL ===== */
-const memories=[
-"1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg",
-"7.heic","8.jpg","9.jpg","10.jpg","11.jpg","12.jpg"
-];
-
-let index=0;
-const img=document.getElementById("memoryImage");
-
-window.addEventListener("wheel",(e)=>{
-if(!document.getElementById("memories").classList.contains("active")) return;
-
-img.classList.remove("zoomIn");
-img.classList.add("zoomOut");
-
-setTimeout(()=>{
-index=(index+(e.deltaY>0?1:-1)+memories.length)%memories.length;
-img.src=memories[index];
-img.classList.remove("zoomOut");
-img.classList.add("zoomIn");
-},400);
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*300+"px";
+noBtn.style.top=Math.random()*200+"px";
 });
+
+/* TIMELINE REVEAL */
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".timeline img")
+.forEach(img=>observer.observe(img));
 
 </script>
 
