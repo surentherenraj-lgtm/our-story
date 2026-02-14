@@ -6,15 +6,22 @@
 
 <style>
 
-/* ===== BODY ===== */
+/* ===== LETTER OPENING EFFECT ===== */
 body{
 margin:0;
 font-family:Segoe UI, sans-serif;
 background:linear-gradient(135deg,#fff6f8,#ffe6ee);
 overflow-x:hidden;
+opacity:0;
+animation:letterOpen 1.6s ease forwards;
 }
 
-/* BACKGROUND MOTION */
+@keyframes letterOpen{
+0%{opacity:0; transform:translateY(40px);}
+100%{opacity:1; transform:translateY(0);}
+}
+
+/* ===== SOFT BACKGROUND MOTION ===== */
 body::before, body::after{
 content:"";
 position:fixed;
@@ -39,14 +46,15 @@ animation:move2 18s infinite alternate;
 @keyframes move1{from{transform:translateY(0)}to{transform:translateY(60px)}}
 @keyframes move2{from{transform:translateY(0)}to{transform:translateY(-60px)}}
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 nav{
 position:fixed;
 top:25px;
 right:50px;
-z-index:100;
+z-index:999;
 font-weight:600;
 }
+
 nav a{
 margin-left:30px;
 cursor:pointer;
@@ -54,19 +62,28 @@ color:#444;
 text-decoration:none;
 }
 
-/* SECTIONS */
+/* ===== SECTIONS ===== */
 .section{
-display:none;
+position:absolute;
+width:100%;
 min-height:100vh;
-padding:90px 8%;
+padding:100px 8%;
+box-sizing:border-box;
+opacity:0;
+transform:translateY(30px);
+transition:all .6s ease;
+pointer-events:none;
 }
 
-.active{
-display:flex;
+.section.active{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
 }
 
-/* HOME LAYOUT */
+/* ===== HOME ===== */
 .home{
+display:flex;
 align-items:center;
 justify-content:space-between;
 position:relative;
@@ -103,18 +120,13 @@ cursor:pointer;
 .yes{background:#ff4d6d;color:white;}
 .no{background:#ccc;}
 
-/* MEMORIES */
-.memories{
-flex-direction:column;
-align-items:center;
-}
-
+/* ===== MEMORIES ===== */
 .gallery{
 width:85%;
+margin:auto;
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
 gap:25px;
-margin-top:40px;
 }
 
 .gallery img{
@@ -123,16 +135,10 @@ border-radius:18px;
 box-shadow:0 15px 35px rgba(0,0,0,.15);
 transition:.3s;
 }
-.gallery img:hover{
-transform:scale(1.05);
-}
+.gallery img:hover{transform:scale(1.05);}
 
-/* VIDEO */
-.video{
-flex-direction:column;
-align-items:center;
-text-align:center;
-}
+/* ===== VIDEO ===== */
+.video{text-align:center;}
 
 video{
 width:70%;
@@ -141,7 +147,7 @@ border-radius:20px;
 box-shadow:0 25px 60px rgba(0,0,0,.25);
 }
 
-/* SECRET MESSAGE */
+/* ===== SECRET MESSAGE ===== */
 #loveScreen{
 display:none;
 position:fixed;
@@ -157,7 +163,7 @@ padding:40px;
 font-size:22px;
 line-height:1.8;
 color:#444;
-z-index:200;
+z-index:2000;
 }
 
 </style>
@@ -165,7 +171,7 @@ z-index:200;
 
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAV -->
 <nav>
 <a onclick="showSection('home')">Home</a>
 <a onclick="showSection('memories')">Memories</a>
@@ -173,10 +179,12 @@ z-index:200;
 </nav>
 
 <!-- HOME -->
-<div id="home" class="section home active">
+<div id="home" class="section active">
+<div class="home">
 
 <div class="left">
 <h1>I wanted to tell you something… ❤️</h1>
+
 <p>
 From your Bubu ❤️<br><br>
 We have shared so many beautiful moments together,
@@ -196,10 +204,11 @@ I still choose you again.
 </div>
 
 </div>
+</div>
 
 <!-- MEMORIES -->
-<div id="memories" class="section memories">
-<h1>Our Memories 📸</h1>
+<div id="memories" class="section">
+<h1 style="text-align:center;">Our Memories 📸</h1>
 
 <div class="gallery">
 <img src="1.jpg">
@@ -227,24 +236,31 @@ I still choose you again.
 </video>
 </div>
 
-<!-- SECRET MESSAGE -->
+<!-- SECRET LOVE LETTER -->
 <div id="loveScreen">
 From your Bubu ❤️<br><br>
+
 Every memory with you has become a part of who I am.<br>
 The laughter, the small fights, the late conversations —
 all of it means everything to me.<br><br>
+
 Loving you was never a decision… it just happened naturally,
 and it still happens every day.<br><br>
+
 <b>I will always choose you ❤️</b>
 </div>
 
 <script>
 
-/* SECTION SWITCH */
+/* NAVIGATION */
 function showSection(id){
-document.querySelectorAll('.section')
-.forEach(sec=>sec.classList.remove('active'));
+document.querySelectorAll('.section').forEach(sec=>{
+sec.classList.remove('active');
+});
+setTimeout(()=>{
 document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+},50);
 }
 
 /* YES BUTTON */
